@@ -1,0 +1,31 @@
+version: '3.9'
+
+services:
+  api:
+    container_name: entrega_s3_kenzie_api
+    build: .
+    ports: 
+      - 3333:3333
+    environment: 
+      - PORT=3333
+    depends_on:
+      db:
+        condition: service_healthy
+    volumes: 
+      - .:/app
+  db: 
+    container_name: tests_products_container
+    image: postgres:latest
+    ports: 
+      - 5432:5433
+    environment: 
+      - POSTGRES_USER=pedro 
+      - POSTGRES_PASSWORD=mar3007 
+      - POSTGRES_DB=tests_products
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U pedro -d tests_products"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 5s
+
