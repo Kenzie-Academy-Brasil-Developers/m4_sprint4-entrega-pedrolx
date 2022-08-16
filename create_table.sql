@@ -1,3 +1,5 @@
+CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+
 CREATE TABLE categories (
     id bigserial NOT NULL PRIMARY KEY UNIQUE,
     name varchar(128) UNIQUE NOT NULL

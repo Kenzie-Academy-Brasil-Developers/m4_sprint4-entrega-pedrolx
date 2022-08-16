@@ -8,6 +8,11 @@ services:
       - 3333:3333
     environment: 
       - PORT=3333
+      - DB_HOST=db
+      - DB_USER=pedro
+      - DB_PASSWORD=mar3007
+      - DB=products_management
+      - DB_PORT=5432
     depends_on:
       db:
         condition: service_healthy
@@ -21,9 +26,9 @@ services:
     environment: 
       - POSTGRES_USER=pedro 
       - POSTGRES_PASSWORD=mar3007 
-      - POSTGRES_DB=tests_products
+      - POSTGRES_DB=products_management
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U pedro -d tests_products"]
+      test: ["CMD-SHELL", "pg_isready -U pedro -d products_management"]
       interval: 10s
       timeout: 5s
       retries: 5
