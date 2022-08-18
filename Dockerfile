@@ -1,6 +1,6 @@
 FROM node:16.15.1
-ENV PORT=3333
-EXPOSE 3333
+ENV PORT=3001
+EXPOSE 3001
 WORKDIR /app
 COPY 'package.json' .
 RUN yarn

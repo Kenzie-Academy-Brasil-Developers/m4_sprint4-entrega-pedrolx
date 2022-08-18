@@ -1,16 +1,11 @@
 import database from "../../database";
 
-const createProductService = async (name, price) => {
+const createProductService = async (name, price, category_id) => {
     try {
-        const res = await database.query(`INSERT INTO products(name, price) VALUES($1, $2) RETURNING *`, [name, price]);
+        const res = await database.query(`INSERT INTO products(name, price, category_id) VALUES($1, $2, $3) RETURNING *`, [name, price, category_id]);
         const product = {
             message: 'Product created',
-            product: {
-                id: res.rows[0].id,
-                name: res.rows[0].name,
-                price: res.rows[0].price,
-                category_id: res.rows[0].category_id
-            }
+            category: res.rows[0]
         }
         return product;
     } catch (error) {

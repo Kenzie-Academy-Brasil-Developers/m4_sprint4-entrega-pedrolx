@@ -1,26 +1,17 @@
 import database from "../../database";
 
-const editProductService = async (name, price, id) => {
+const editProductService = async (name, price, category_id, id) => {
     try {
-        if (price === undefined) {
-            const res = await database.query(`UPDATE products SET name = $1 WHERE products.id = $2 RETURNING *`, [name, id])
-            const productUpdated = {
-                message: 'Product Updated',
-                product: {
-                    id: res.rows[0].id,
-                    name: res.rows[0].name,
-                    price: res.rows[0].price
-                }
-            }
-            return productUpdated;
-        }
-        const res = await database.query(`UPDATE products SET name = $1 price = $2 WHERE products.id = $3 RETURNING *`, [name, price, id])
+        const res = await database.query(`UPDATE products SET name = $1, price = $2, category_id = $3 WHERE products.id = $4 RETURNING *`, [name, price, category_id, id])
+        // if(!res.rows[0].name) {
+        //     throw new Error("Category or product id not found")
+        // }
         const productUpdated = {
             message: 'Product Updated',
             product: {
-                id: res.rows[0].id,
                 name: res.rows[0].name,
-                price: res.rows[0].price
+                price: res.rows[0].price,
+                category_id: res.rows[0].category_id
             }
         }
         return productUpdated;

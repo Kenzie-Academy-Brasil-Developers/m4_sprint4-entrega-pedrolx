@@ -1,13 +1,13 @@
-version: '3.9'
+version: "3.9"
 
 services:
   api:
     container_name: entrega_s3_kenzie_api
     build: .
-    ports: 
-      - 3333:3333
-    environment: 
-      - PORT=3333
+    ports:
+      - 3001:3001
+    environment:
+      - PORT=3001
       - DB_HOST=db
       - DB_USER=pedro
       - DB_PASSWORD=mar3007
@@ -16,16 +16,16 @@ services:
     depends_on:
       db:
         condition: service_healthy
-    volumes: 
+    volumes:
       - .:/app
-  db: 
+  db:
     container_name: tests_products_container
     image: postgres:latest
-    ports: 
-      - 5432:5433
-    environment: 
-      - POSTGRES_USER=pedro 
-      - POSTGRES_PASSWORD=mar3007 
+    ports:
+      - 5431:5432
+    environment:
+      - POSTGRES_USER=pedro
+      - POSTGRES_PASSWORD=mar3007
       - POSTGRES_DB=products_management
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U pedro -d products_management"]
@@ -33,4 +33,5 @@ services:
       timeout: 5s
       retries: 5
       start_period: 5s
-
+    volumes:
+      - ./create_tables.sql:/docker-entrypoint-initdb.d/create_tables.sql

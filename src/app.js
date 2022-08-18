@@ -11,7 +11,7 @@ app.use(express.json());
 app.use("/categories", categoriesRouter);
 app.use("/products", productsRouter);
 
-app.listen(3333, () => {
+app.listen(3001, () => {
   console.log("Server running");
   startDatabase()
 });
